@@ -3,6 +3,7 @@ package plus.ldl.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import plus.ldl.domain.Items;
@@ -25,5 +26,10 @@ public class ItemsController {
         mv.addObject("item", items);
         mv.setViewName("itemDetail");
         return mv;
+    }
+
+    @PostMapping("/update")
+    public void update(Items items) {
+        itemsService.update(items);
     }
 }

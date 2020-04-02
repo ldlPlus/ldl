@@ -8,4 +8,6 @@ import plus.ldl.domain.Items;
  */
 public interface ItemsService {
     Items findById(Integer id);
+
+    void update(Items items);
 }
