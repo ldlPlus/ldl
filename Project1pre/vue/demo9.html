@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>v-text与v-html在v-bind上的使用</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul>
+        <li v-for="(index,item) in arr">
+            {{item}}=={{index}} <!--括号前面必须是元素，后面才是索引-->
+        </li>
+    </ul>
+    <ul>
+        <ol v-for="(value,key) in p">
+            {{key}}=={{value}} <!--括号前面必须是元素，后面才是索引-->
+        </ol>
+    </ul>
+
+</div>
+</body>
+<script>
+    //view model
+    new Vue({
+        el: "#app",
+        data: {
+            arr: [1, 2, 3, 4, 5, 6, 7],
+            p: {
+                id: 1,
+                name: "笔记本电话",
+                price: 5000
+            }
+        }
+    })
+</script>
+</html>

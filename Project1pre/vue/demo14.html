@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>vuejs生命周期</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+
+<body>
+<div id="app">
+    {{message}}
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            message: 'hello world'
+        },
+        beforeCreate: function () {
+            console.log(this);
+            showData('创建vue实例前beforeCreate', this);
+        },
+        created: function () {
+            showData('创建vue实例后created', this);
+        },
+        beforeMount: function () {
+            showData('挂载到dom前beforeMount', this);
+        },
+        mounted: function () {
+            showData('挂载到dom后mounted', this);
+        },
+        beforeUpdate: function () {
+            showData('数据变化更新前beforeUpdate', this);
+        },
+        updated: function () {
+            showData('数据变化更新后updated', this);
+        },
+        beforeDestroy: function () {
+            vm.test = "3333";
+            showData('vue实例销毁前beforeDestroy', this);
+        },
+        destroyed: function () {
+            showData('vue实例销毁后destroyed', this);
+        }
+    });
+
+    function realDom() {
+        console.log('真实dom结构：' + document.getElementById('app').innerHTML);
+    }
+
+    function showData(process, obj) {
+        console.log(process);
+        console.log('data 数据：' + obj.message)
+        console.log('挂载的对象：')
+        console.log(obj.$el)
+        realDom();
+        console.log('------------------')
+        console.log('------------------')
+    }
+
+    // vm.message = "good...";
+    vm.$destroy();
+
+    setTimeout(function () {
+        vm.message = "good..."
+        alert(vm.message)
+    }, 5000)
+</script>
+
+</html>

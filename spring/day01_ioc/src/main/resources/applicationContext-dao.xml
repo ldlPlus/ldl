@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="userDao" class="plus.ldl.dao.impl.UserDaoImpl">
+        <property name="username" value="张三"/>
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </list>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1">ppp1</prop>
+                <prop key="p2">ppp2</prop>
+                <prop key="p3">ppp3</prop>
+            </props>
+        </property>
+        <property name="strArray">
+            <array>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </array>
+        </property>
+        <property name="stringSet">
+            <set>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+                <value>ddd</value>
+            </set>
+        </property>
+        <property name="userList">
+            <list>
+                <bean class="plus.ldl.domain.User">
+                    <property name="username" value="张三"/>
+                    <property name="addr" value="重庆"/>
+                </bean>
+                <bean class="plus.ldl.domain.User">
+                    <property name="username" value="李四"/>
+                    <property name="addr" value="成都"/>
+                </bean>
+                <bean class="plus.ldl.domain.User">
+                    <property name="username" value="王五"/>
+                    <property name="addr" value="四川"/>
+                </bean>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="map1">
+                    <bean class="plus.ldl.domain.User">
+                        <property name="username" value="张三"/>
+                        <property name="addr" value="重庆"/>
+                    </bean>
+                </entry>
+                <entry key="map2">
+                    <bean class="plus.ldl.domain.User">
+                        <property name="username" value="李四"/>
+                        <property name="addr" value="成都"/>
+                    </bean>
+                </entry>
+                <entry key="map3">
+                    <bean class="plus.ldl.domain.User">
+                        <property name="username" value="王五"/>
+                        <property name="addr" value="四川"/>
+                    </bean>
+                </entry>
+
+            </map>
+        </property>
+    </bean>
+
+</beans>

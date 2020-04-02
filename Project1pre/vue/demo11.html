@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>v-for遍历对象</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    <input v-model="num"><input type="button" @click="num++" value="增加">
+</div>
+</body>
+<script>
+    //view model
+    new Vue({
+        el: "#app",
+        data: {
+            num: 11
+        }
+    })
+</script>
+</html>

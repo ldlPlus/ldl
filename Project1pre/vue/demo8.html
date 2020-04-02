@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>v-model</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+
+<body>
+<div id="app">
+    Vue:<input @keydown.enter="fun1">
+</div>
+</body>
+<script>
+    //view model
+    new Vue({
+        el: "#app",
+        methods: {
+
+            fun1() {
+                alert("按下的是回车")
+            }
+        }
+    })
+</script>
+
+</html>

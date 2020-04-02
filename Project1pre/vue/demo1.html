@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>快速入门</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    {{message}}  <!--Vue插值表达式-->
+    <hr>
+    {{1==2 ? "ok":"no"}}
+    <hr>
+    {{num++}}
+</div>
+</body>
+<script>
+    //view model
+    new Vue({
+        el: "#app",/*#为id选择器*/
+        data: {
+            message: "hello Vue EESY", /*不能加分号*/
+            num: 100
+        }
+    })
+</script>
+</html>

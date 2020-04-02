@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>黑马旅游网-我的收藏</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        .tab-content .row > div {
+            margin-top: 16px;
+        }
+
+        .tab-content {
+            margin-bottom: 36px;
+        }
+    </style>
+    <script src="js/jquery-3.3.1.js"></script>
+
+    <script>
+        function loaded(currentPage) {
+            var lis = "";
+            $.post("favorite/myFavorite", {currentPage: currentPage}, function (data) {
+                var divs = $(".row");
+                if (data) {
+                    //图片详情显示
+                    var rname;
+                    $.each(data.data, function () {
+                        rname = this.rname.replace(/\【.*?\】/g, "").substring(0, 18);
+                        lis += '<div class="col-md-3">\n' +
+                            '    <a href="route_detail.html?rid=' + this.rid + '">\n' +
+                            '        <img src="' + this.rimage + '" alt="">\n' +
+                            '        <div class="has_border">\n' +
+                            '            <h3>' + rname + '...</h3>\n' +
+                            '            <div class="price">网付价<em>￥</em><strong>' + this.price + '</strong><em>起</em></div>\n' +
+                            '        </div>\n' +
+                            '    </a>\n' +
+                            '</div>';
+                    });
+                    divs.html(lis);
+
+                    //分页栏显示
+                    var pageNum = $(".pageNum");
+                    lis = '<ul>';
+                    lis += '<li><a href="javascript:loaded(' + 1 + ')">首页</a></li>';
+                    let before = currentPage - 1;
+                    if (before <= 1) {
+                        before = 1;
+                    }
+                    lis += '<li class="threeword"><a href="javascript:loaded(' + before + ')">上一页</a></li>';
+
+                    //分页栏显示10条，当前页前4条后5条
+                    var start;
+                    var end;
+                    if (data.totalPage < 10) {
+                        start = 1;
+                        end = data.totalPage;
+                    } else {
+                        start = data.currentPage - 4;
+                        end = data.currentPage + 5;
+                        if (start <= 1) {
+                            start = 1;
+                            end = 10;
+                        }
+                        if (end > data.totalPage) {
+                            end = data.totalPage;
+                            start = end - 9;
+                        }
+                    }
+                    for (let i = start; i <= end; i++) {
+                        if (data.currentPage === i) {
+                            lis += '<li class="curPage"><a href="javascript:loaded(' + i + ')">' + i + '</a></li>'
+                        } else {
+                            lis += '<li><a href="javascript:loaded(' + i + ')">' + i + '</a></li>'
+                        }
+                    }
+
+                    let after = currentPage + 1;
+                    if (after >= data.totalPage) {
+                        after = data.totalPage;
+                    }
+                    lis += '<li class="threeword"><a href="javascript:loaded(' + after + ');">下一页</a></li>';
+                    lis += '<li class="threeword"><a href="javascript:loaded(' + data.totalPage + ');">末页</a></li>';
+                    lis += '</ul>';
+                    pageNum.html(lis);
+                } else {
+                    divs.html('<h3 style="text-align: center;">您尚未收藏，请收藏后查看</h3>');
+                }
+
+                window.scrollTo(0, 0)
+            })
+        }
+
+        $(function () {
+            loaded(1);
+
+        })
+
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<!-- 排行榜 start-->
+<section id="content">
+    <section class="hemai_jx">
+        <div class="jx_top">
+            <div class="jx_tit">
+                <img src="images/icon_5.jpg" alt="">
+                <span>我的收藏</span>
+            </div>
+        </div>
+        <div class="jx_content">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <div class="row">
+                        <!--收藏详情-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pageNum">
+            <!--显示分页详情-->
+        </div>
+    </section>
+</section>
+<!-- 排行榜 end-->
+
+<!--引入尾部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+</html>

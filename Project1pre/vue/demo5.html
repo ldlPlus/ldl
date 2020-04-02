@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>v-on:事件修饰符</title>
+
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+
+<body>
+<div id="app">
+    <form @submit.prevent="" action="http://www.baidu.com" method="post">
+        <input type="submit" value="提交">
+    </form>
+    <hr>
+    <form onsubmit="return checkForm()" action="http://www.baidu.com" method="post">
+        <input type="submit" value="提交">
+    </form>
+</div>
+</body>
+<script>
+    //view model
+    function checkForm() {
+        return false;
+    }
+
+    new Vue({
+        el: "#app"
+    })
+
+</script>
+
+</html>

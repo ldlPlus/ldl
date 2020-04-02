@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6.组件</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    <abc title="haha"><h1>hahh</h1></abc>
+</div>
+<script>
+    Vue.component("abc", {
+        template: '<button @click="count++">{{title}} you clicked me {{count}} times</button>',
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        /*
+        data(){ <!--两种写法-->
+        return {
+            count: 0
+        }
+        } */
+        props: ['title'],
+        methods: {
+            clickFun: function () {
+                this.count++;
+            }
+        }
+    })
+
+    new Vue({
+        el: "#app",
+
+    })
+</script>
+</body>
+</html>

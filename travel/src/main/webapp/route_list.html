@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>黑马旅游-搜索</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" href="css/search.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/getParameter.js"></script>
+
+    <script>
+        //加载整个页面资源
+        function loaded(cid, currentPage, pageSize, rname) {
+            //页面加载完发起post请求，接受服务器数据
+            $.post("route/pageQuery", {
+                cid: cid,
+                currentPage: currentPage,
+                pageSize: pageSize,
+                rname: rname
+            }, function (data) {
+                //遍历数据，拼接资源
+                var showlis = $("#showLis");
+                var lis = "";
+                $.each(data.data, function () {
+                    lis += ('<li>\n' +
+                        '    <div class="img"><img style="width: 299px;height: 169px" src="' + this.rimage + '" alt=""></div>\n' +
+                        '    <div class="text1">\n' +
+                        '        <p>' + this.rname + '</p>\n' +
+                        '        <br/>\n' +
+                        '        <p>' + this.routeIntroduce + '</p>\n' +
+                        '    </div>\n' +
+                        '    <div class="price">\n' +
+                        '        <p class="price_num">\n' +
+                        '            <span>&yen;</span>\n' +
+                        '            <span>' + this.price + '</span>\n' +
+                        '            <span>起</span>\n' +
+                        '        </p>\n' +
+                        '        <p><a href="route_detail.html?rid=' + this.rid + '">查看详情</a></p>\n' +
+                        '    </div>\n' +
+                        '</li>')
+                });
+                //显示页面数据
+                showlis.html(lis);
+
+                //总页数记录
+                $("#title2").html(data.totalPage);
+                //总条数记录
+                $("#title3").html(data.totalCount);
+
+                //分页栏拼接设置
+                var pageLis = $("#pageLis");
+                lis = "";
+                //首页
+                lis += ('<li onclick="loaded(' + cid + ',' + 1 + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0)">首页</a></li>');
+
+                //上一页，至首页
+                var before = data.currentPage - 1;
+                if (before <= 1) {
+                    before = 1;
+                }
+                lis += ('<li class="threeword" onclick="loaded(' + cid + ',' + before + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0)">上一页</a></li>');
+
+                //分页栏显示10条，当前页前4条后5条
+                var start;
+                var end;
+                if (data.totalPage < 10) {
+                    start = 1;
+                    end = data.totalPage;
+                } else {
+                    start = data.currentPage - 4;
+                    end = data.currentPage + 5;
+                    if (start <= 1) {
+                        start = 1;
+                        end = 10;
+                    }
+                    if (end > data.totalPage) {
+                        end = data.totalPage;
+                        start = end - 9;
+                    }
+                }
+
+                for (let i = start; i <= end; i++) {
+                    if (data.currentPage === i) {
+                        //当前页
+                        lis += ('<li class="curPage" onclick="loaded(' + cid + ',' + i + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0)">' + i + '</a></li>')
+                    } else {
+                        //非当前页
+                        lis += ('<li onclick="loaded(' + cid + ',' + i + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0)">' + i + '</a></li>')
+                    }
+                }
+
+                //下一页，至末页
+                var next = data.currentPage + 1;
+                if (next >= data.totalPage) {
+                    next = data.totalPage;
+                }
+                lis += ('<li class="threeword" onclick="loaded(' + cid + ',' + next + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0);">下一页</a></li>');
+                //末页
+                lis += ('<li class="threeword" onclick="loaded(' + cid + ',' + data.totalPage + ',' + data.pageSize + ',\'' + rname + '\')"><a href="javascript:void(0);">末页</a></li>');
+                //显示分页栏
+                pageLis.html(lis);
+
+                //定位到页面顶部
+                window.scrollTo(0, 0);
+
+            });
+            if (cid !== "null") {
+                $.post("route/findCid", {cid: cid}, function (data) {
+                    if (data) {
+                        $("#title1").html(data)
+                    }
+                })
+            }
+
+        }
+
+        $(function () {
+            var cid = getParameter("cid");
+            var rname = getParameter("rname");
+            if (rname) {
+                //url解码
+                rname = window.decodeURIComponent(rname);
+            }
+            loaded(cid, null, null, rname);
+
+            //热门推荐:收藏最多
+            $.post("favorite/bestHot", {limit: 5}, function (data) {
+                if (data) {
+                    var lis = '';
+                    $.each(data, function () {
+                        lis += '<li><a href="route_detail.html?rid=' + this.rid + '">\n' +
+                            '      <div class="left"><img src="' + this.rimage + '" alt=""></div>\n' +
+                            '      <div class="right">\n' +
+                            '          <p>' + this.rname.replace(/\【.*?\】/g, "").substring(0, 18) + '...</p>\n' +
+                            '          <p>网付价<span>&yen;<span>' + this.price + '</span>起</span>\n' +
+                            '          </p>\n' +
+                            '      </div>\n' +
+                            '  </a></li>';
+                    });
+                    $("#bestHot").html(lis);
+                }
+
+            })
+        })
+
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="page_one">
+    <div class="contant">
+        <div class="crumbs">
+            <img src="images/search.png" alt="">
+            <p>黑马旅行><span id="title1">搜索结果</span></p>
+        </div>
+        <div class="xinxi clearfix">
+            <div class="left">
+                <div class="header">
+                    <span>商品信息</span>
+                    <span class="jg">价格</span>
+                </div>
+                <ul id="showLis">
+                </ul>
+                <div class="page_num_inf">
+                    <i></i> 共
+                    <span id="title2"></span>页<span id="title3"></span>条
+                </div>
+                <div class="pageNum">
+                    <ul id="pageLis">
+                    </ul>
+                </div>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="hot">HOT</div>
+                    <span>热门推荐</span>
+                </div>
+                <ul id="bestHot">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--引入头部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+
+</html>

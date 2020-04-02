@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ 版权所有(C)，ldl.plus，2020，所有权利保留。
+  ~
+  ~ 项目名： travel
+  ~ 文件名： applicationContext.xml
+  ~ 模块说明：
+  ~ 修改历史:
+  ~ 2020-3-2 - lidonglin - 创建。
+  -->
+
+<beans>
+    <bean id="userDao" class="cn.itcast.travel.dao.impl.UserDaoImpl"/>
+    <bean id="categoryDao" class="cn.itcast.travel.dao.impl.CategoryDaoImpl"/>
+    <bean id="routeDao" class="cn.itcast.travel.dao.impl.RouteDaoImpl"/>
+    <bean id="routeImgDao" class="cn.itcast.travel.dao.impl.RouteImgDaoImpl"/>
+    <bean id="sellerDao" class="cn.itcast.travel.dao.impl.SellerDaoImpl"/>
+    <bean id="favoriteDao" class="cn.itcast.travel.dao.impl.FavoriteDaoImpl"/>
+    <bean id="userService" class="cn.itcast.travel.service.impl.UserServiceImpl"/>
+    <bean id="categoryService" class="cn.itcast.travel.service.impl.CategoryServiceImpl"/>
+    <bean id="routeService" class="cn.itcast.travel.service.impl.RouteServiceImpl"/>
+    <bean id="favoriteService" class="cn.itcast.travel.service.impl.FavoriteServiceImpl"/>
+    <bean id="sellerService" class="cn.itcast.travel.service.impl.SellerServiceImpl"/>
+    <bean id="routeImgService" class="cn.itcast.travel.service.impl.RouteImgServiceImpl"/>
+</beans>

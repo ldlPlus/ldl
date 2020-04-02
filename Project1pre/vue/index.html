@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <script src="js/vue-2.6.10.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <input v-model="num">
+    <h3>{{name}} 非常酷，有{{num}}堂课</h3>
+    <button @click="num+=3">点我++</button>
+    <button @click="num-=3">点我--</button>
+
+</div>
+<script>
+    var app = new Vue({
+        el: "#app",
+        data: {
+            name: "",
+            num: 1
+        },
+        created() {
+            this.name = "123";
+            this._data.num = "1";
+            console.log(this);
+            alert(this.$data === this._data)
+        }
+    });
+</script>
+</body>
+</html>

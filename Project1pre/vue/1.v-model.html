@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1.v-model</title>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="checkbox" v-model="language" value="java">java<br>
+    <input type="checkbox" v-model="language" value="python">python<br>
+    <input type="checkbox" v-model="language" value="c++">c++<br>
+    <input type="checkbox" v-model="language" value="c">c<br>
+
+    <br>
+    <h3>已选取： {{language.join(" , ")}} </h3>
+</div>
+
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            language: []
+        },
+        methods: {
+            login: function () {
+                alert(this.language)
+            }
+        }, created() {
+            this.language = ["java", "c"];
+        }
+    });
+</script>
+</body>
+</html>

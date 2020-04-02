@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>收藏排行榜</title>
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="css/ranking-list.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        function loaded(currentPage, name, minMoney, maxMoney) {
+            $.post("favorite/favoriteRank", {
+                    currentPage: currentPage,
+                    name: name,
+                    minMoney: minMoney,
+                    maxMoney: maxMoney
+                }, function (data) {
+                    var lis = "<ul>";
+                    //详情图片显示
+                    if (data) {
+                        $.each(data.data, function (i, o) {
+                            lis += '<li>';
+                            lis += '<span class="num">' + (i + 1 + (currentPage - 1) * 8) + '</span>'
+                            lis += '<a href="route_detail.html?rid=' + o.rid + '"><img src="' + o.rimage + '" alt=""></a>\n' +
+                                '    <h4><a href="route_detail.html?rid=' + o.rid + '">' + o.rname.substring(0, 50) + '..</a></h4>\n' +
+                                '    <p>\n' +
+                                '        <b class="price">&yen;<span>' + o.price + '</span>起</b>\n' +
+                                '        <span class="shouchang">已收藏' + o.count + '次</span>\n' +
+                                '    </p>\n' +
+                                '</li>'
+                        });
+
+                    } else {
+                        lis += '<h3 style="text-align: center">暂无收藏，请稍后再试</h3>';
+                    }
+                    lis += '</ul>';
+                    $(".clearfix").html(lis);
+
+                    if (data) {
+                        //分页栏显示
+                        var pageNum = $(".pageNum");
+                        lis = '<ul>';
+                        lis += '<li><a href="javascript:loaded(' + 1 + ',' + name + ',' + minMoney + ',' + maxMoney + ')">首页</a></li>';
+                        let before = currentPage - 1;
+                        if (before <= 1) {
+                            before = 1;
+                        }
+                        lis += '<li class="threeword"><a href="javascript:loaded(' + before + ',' + name + ',' + minMoney + ',' + maxMoney + ')">上一页</a></li>';
+
+                        //分页栏显示10条，当前页前4条后5条
+                        var start;
+                        var end;
+                        if (data.totalPage < 10) {
+                            start = 1;
+                            end = data.totalPage;
+                        } else {
+                            start = data.currentPage - 4;
+                            end = data.currentPage + 5;
+                            if (start <= 1) {
+                                start = 1;
+                                end = 10;
+                            }
+                            if (end > data.totalPage) {
+                                end = data.totalPage;
+                                start = end - 9;
+                            }
+                        }
+                        for (let i = start; i <= end; i++) {
+                            if (data.currentPage === i) {
+                                lis += '<li class="curPage"><a href="javascript:loaded(' + i + ',' + name + ',' + minMoney + ',' + maxMoney + ')">' + i + '</a></li>'
+                            } else {
+                                lis += '<li><a href="javascript:loaded(' + i + ',' + name + ',' + minMoney + ',' + maxMoney + ')">' + i + '</a></li>'
+                            }
+                        }
+                        let after = currentPage + 1;
+                        if (after >= data.totalPage) {
+                            after = data.totalPage;
+                        }
+                        lis += '<li class="threeword"><a href="javascript:loaded(' + after + ',' + name + ',' + minMoney + ',' + maxMoney + ');">下一页</a></li>';
+                        lis += '<li class="threeword"><a href="javascript:loaded(' + data.totalPage + ',' + name + ',' + minMoney + ',' + maxMoney + ');">末页</a></li>';
+                        lis += '</ul>';
+                        pageNum.html(lis);
+                    }
+
+                    window.scrollTo(0, 0)
+                }
+            )
+        }
+
+        $(function () {
+            loaded(1, null, null, null);
+            $("#btn_sub").click(function () {
+                var name = $("#name").val();
+                if (name === "") {
+                    name = null;
+                }
+                var minMoney = $("#minMoney").val();
+                if (minMoney === "") {
+                    minMoney = null;
+                }
+                var maxMoney = $("#maxMoney").val();
+                if (maxMoney === "") {
+                    maxMoney = null;
+                }
+                loaded(1, name, minMoney, maxMoney)
+            })
+        })
+    </script>
+</head>
+<body>
+<!--引入头部-->
+<div id="header"></div>
+<div class="contant">
+    <div class="shaixuan">
+        <span>线路名称</span>
+        <input type="text" name="name" id="name">
+        <span>金额</span>
+        <input type="text" name="minMoney" id="minMoney">~<input type="text" name="maxMoney" id="maxMoney">
+        <button id="btn_sub">搜索</button>
+    </div>
+    <div class="list clearfix">
+        <!--主题显示部分-->
+    </div>
+    <div class="pageNum">
+        <!--分页显示-->
+    </div>
+</div>
+
+<!--导入底部-->
+<div id="footer"></div>
+<!--导入布局js，共享header和footer-->
+<script type="text/javascript" src="js/include.js"></script>
+</body>
+</html>
