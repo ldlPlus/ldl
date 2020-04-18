@@ -181,15 +181,31 @@
             <artifactId>druid</artifactId>
             <version>1.0.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations-java5</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <!-- 添加tomcat7插件 -->
     <build>
         <plugins>
+            <!--tomcat插件-->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
+                <!-- tomcat7的插件， 不同tomcat版本这个也不一样 -->
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+                <configuration>
+                    <!-- 通过maven tomcat7:run运行项目时，访问项目的端口号 -->
+                    <port>80</port>
+                    <!-- 项目访问路径  本例：localhost:9090,  如果配置的aa， 则访问路径为localhost:9090/aa-->
+                    <path>/ldl</path>
+                </configuration>
             </plugin>
+            
+            
         </plugins>
     </build>
 
