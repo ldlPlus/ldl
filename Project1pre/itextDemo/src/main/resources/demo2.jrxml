@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="demo2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="62c4df38-a5e0-40f8-82b0-c1c9c92ddc6c">
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <queryString language="SQL">
+        <![CDATA[]]>
+    </queryString>
+    <field name="name" class="java.lang.String">
+        <fieldDescription><![CDATA[项目]]></fieldDescription>
+    </field>
+    <field name="code" class="java.lang.String"/>
+    <field name="sex" class="java.lang.String"/>
+    <field name="age" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="85" splitType="Stretch">
+            <image>
+                <reportElement x="0" y="0" width="130" height="50" uuid="9774b744-4201-4785-a601-32220c5168e4"/>
+                <imageExpression><![CDATA["http://www.itcast.cn/2018czgw/images/logo.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement x="200" y="10" width="191" height="47" uuid="e929054e-4d98-41f2-8bd0-927ca0029ef6"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="26"/>
+                </textElement>
+                <text><![CDATA[PDF报表测试]]></text>
+            </staticText>
+            <textField pattern="yyyy-MM-dd">
+                <reportElement x="470" y="50" width="100" height="30" uuid="7d068414-dc58-486b-a9d2-b019a40d37d5"/>
+                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="35" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="38" splitType="Stretch">
+            <staticText>
+                <reportElement x="90" y="0" width="100" height="38" uuid="1cb25a37-091d-46a7-81d9-5e4e2fb1984f">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="c2507db0-7d32-47a3-9fc4-7bc577b3eae3"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <text><![CDATA[套餐名称]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="0" width="100" height="38" uuid="d93ef6ba-3da1-457a-95c2-47d527a6f788">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ec3b0da5-9a2d-4e5e-aa72-2207716e871d"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <text><![CDATA[套餐编码]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="290" y="0" width="100" height="38" uuid="f0140f20-6e1d-46c0-9ff4-f34f0815f4d9">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="c9844a1e-a9a9-458d-8df8-54e4e8ba28db"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <text><![CDATA[适用性别]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="390" y="0" width="100" height="38" uuid="142ea5e9-cb89-41b5-b9b5-3a421cb53314">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="cde47f12-c4ab-40f3-888b-a1e8df2b5b9a"/>
+                </reportElement>
+                <box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <text><![CDATA[适用年龄]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="31" splitType="Stretch">
+            <textField>
+                <reportElement x="90" y="0" width="100" height="30" uuid="ce4d0141-8ed7-453d-b464-a96f8423a371">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="c2507db0-7d32-47a3-9fc4-7bc577b3eae3"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="190" y="0" width="100" height="30" uuid="e030511c-c81d-4f8c-ae1f-1282ed4e5d23">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="ec3b0da5-9a2d-4e5e-aa72-2207716e871d"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{code}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="290" y="0" width="100" height="30" uuid="887ee7c7-8219-4feb-bb43-a0212f74bfdf">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="c9844a1e-a9a9-458d-8df8-54e4e8ba28db"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{sex}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="391" y="0" width="100" height="30" uuid="a0c96434-3332-457d-897a-257541d18dce">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID"
+                              value="cde47f12-c4ab-40f3-888b-a1e8df2b5b9a"/>
+                </reportElement>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="华文宋体" size="14"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+</jasperReport>

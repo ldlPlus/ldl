@@ -1,0 +1,24 @@
+
+
+LLLLLLLLLLL             DDDDDDDDDDDDD      LLLLLLLLLLL             
+L:::::::::L             D::::::::::::DDD   L:::::::::L             
+L:::::::::L             D:::::::::::::::DD L:::::::::L             
+LL:::::::LL             DDD:::::DDDDD:::::DLL:::::::LL             
+  L:::::L                 D:::::D    D:::::D L:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L                 D:::::D     D:::::DL:::::L               
+  L:::::L         LLLLLL  D:::::D    D:::::D L:::::L         LLLLLL
+LL:::::::LLLLLLLLL:::::LDDD:::::DDDDD:::::DLL:::::::LLLLLLLLL:::::L
+L::::::::::::::::::::::LD:::::::::::::::DD L::::::::::::::::::::::L
+L::::::::::::::::::::::LD::::::::::::DDD   L::::::::::::::::::::::L
+LLLLLLLLLLLLLLLLLLLLLLLLDDDDDDDDDDDDD      LLLLLLLLLLLLLLLLLLLLLLLL
+
+
+...................................................................
+              佛祖保佑                       永无BUG       
+
+			  

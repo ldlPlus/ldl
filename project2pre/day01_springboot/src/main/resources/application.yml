@@ -1,0 +1,25 @@
+---
+spring:
+  profiles: pro
+
+person:
+  address:
+    - chongqing
+    - shanghai
+  age: 20
+  name: ldl
+
+server:
+  port: 80
+---
+spring:
+  profiles: dev
+
+server:
+  port: 8888
+  servlet:
+    context-path: /ldl
+---
+spring:
+  profiles:
+    active: dev
