@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.ldl.excelpoijob.mapper.JianguocunMapper">
+    <resultMap id="BaseResultMap" type="plus.ldl.excelpoijob.domain.Jianguocun">
+        <!--@mbg.generated-->
+        <!--@Table jianguocun-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="relationship" jdbcType="VARCHAR" property="relationship"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="idcard" jdbcType="VARCHAR" property="idcard"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="birthday" jdbcType="VARCHAR" property="birthday"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="housenumberone" jdbcType="VARCHAR" property="housenumberone"/>
+        <result column="housenumbertwo" jdbcType="VARCHAR" property="housenumbertwo"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="hometown" jdbcType="VARCHAR" property="hometown"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, relationship, `name`, idcard, phone, birthday, address, housenumberone, housenumbertwo,
+        sex, hometown
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from jianguocun
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from jianguocun
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="plus.ldl.excelpoijob.domain.Jianguocun"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into jianguocun (relationship, `name`, idcard,
+        phone, birthday, address,
+        housenumberone, housenumbertwo, sex,
+        hometown)
+        values (#{relationship,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR},
+        #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+        #{housenumberone,jdbcType=VARCHAR}, #{housenumbertwo,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+        #{hometown,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="plus.ldl.excelpoijob.domain.Jianguocun"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into jianguocun
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relationship != null">
+                relationship,
+            </if>
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="idcard != null">
+                idcard,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="housenumberone != null">
+                housenumberone,
+            </if>
+            <if test="housenumbertwo != null">
+                housenumbertwo,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="hometown != null">
+                hometown,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relationship != null">
+                #{relationship,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idcard != null">
+                #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="housenumberone != null">
+                #{housenumberone,jdbcType=VARCHAR},
+            </if>
+            <if test="housenumbertwo != null">
+                #{housenumbertwo,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="hometown != null">
+                #{hometown,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="plus.ldl.excelpoijob.domain.Jianguocun">
+        <!--@mbg.generated-->
+        update jianguocun
+        <set>
+            <if test="relationship != null">
+                relationship = #{relationship,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="idcard != null">
+                idcard = #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="housenumberone != null">
+                housenumberone = #{housenumberone,jdbcType=VARCHAR},
+            </if>
+            <if test="housenumbertwo != null">
+                housenumbertwo = #{housenumbertwo,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="hometown != null">
+                hometown = #{hometown,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="plus.ldl.excelpoijob.domain.Jianguocun">
+        <!--@mbg.generated-->
+        update jianguocun
+        set relationship = #{relationship,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
+        idcard = #{idcard,jdbcType=VARCHAR},
+        phone = #{phone,jdbcType=VARCHAR},
+        birthday = #{birthday,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        housenumberone = #{housenumberone,jdbcType=VARCHAR},
+        housenumbertwo = #{housenumbertwo,jdbcType=VARCHAR},
+        sex = #{sex,jdbcType=VARCHAR},
+        hometown = #{hometown,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByName">
+        update jianguocun
+        set idcard=#{idcard},phone=#{phone}
+        where name=#{name} and birthday=#{birthday}
+    </update>
+    <select id="findByName" resultMap="BaseResultMap">
+        select * from jianguocun where name=#{param1} and sex=#{param2}
+    </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select *
+        from jianguocun
+    </select>
+    <select id="findHousenumberonesByGroup" resultType="java.lang.String">
+        SELECT housenumberone
+        FROM jianguocun
+        group by housenumberone
+    </select>
+    <select id="findByHousenumberones" resultMap="BaseResultMap">
+        select * from jianguocun where housenumberone=#{housenumberone}
+    </select>
+</mapper>

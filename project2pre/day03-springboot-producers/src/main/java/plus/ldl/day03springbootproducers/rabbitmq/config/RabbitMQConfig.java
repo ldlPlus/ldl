@@ -2,6 +2,7 @@ package plus.ldl.day03springbootproducers.rabbitmq.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +12,14 @@ import org.springframework.context.annotation.Configuration;
  * 配置
  */
 @Configuration
+// @ConfigurationProperties(prefix = "spring.rabbitmq")
 public class RabbitMQConfig {
 
-    public static final String EXCHANGE_NAME = "boot_topic_exchange";
-    public static final String QUEUE_NAME = "boot_queue";
+    @Value("spring.rabbitmq.TOPIC_EXCHANGE_NAME")
+    public static final String TOPIC_EXCHANGE_NAME = "boot_topic_exchange";
+
+    @Value("spring.rabbitmq.TOPIC_QUEUE_NAME")
+    public static final String TOPIC_QUEUE_NAME = "boot_queue";
 
     /**
      * 交换机
@@ -23,7 +28,7 @@ public class RabbitMQConfig {
      */
     @Bean
     public Exchange bootExchange() {
-        return ExchangeBuilder.topicExchange(EXCHANGE_NAME).durable(true).build();
+        return ExchangeBuilder.topicExchange(TOPIC_EXCHANGE_NAME).durable(true).build();
     }
 
     /**
@@ -33,7 +38,7 @@ public class RabbitMQConfig {
      */
     @Bean
     public Queue bootQueue() {
-        return QueueBuilder.durable(QUEUE_NAME).build();
+        return QueueBuilder.durable(TOPIC_QUEUE_NAME).build();
     }
 
     /**

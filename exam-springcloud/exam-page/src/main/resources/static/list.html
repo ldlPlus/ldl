@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <script src="js/axios.min.js"></script>
+    <script src="js/vue-2.6.10.js"></script>
+</head>
+<body>
+<div id="app">
+    <h2>文章列表</h2>
+    <div id="title" style="color: red">&nbsp;</div>
+    <table border="1" cellpadding="1" cellspacing="0" style="text-align: center">
+        <thead>
+        <tr>
+            <td>文章编号</td>
+            <td>标题</td>
+            <td>作者编号</td>
+            <td>发表日期</td>
+            <td>审核状态</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr v-for="article in articles" @mouseover="fun1(article.title)" @mouseout="fun2()">
+            <td>{{article.id}}</td>
+            <td>{{article.title}}</td>
+            <td>{{article.authorid}}</td>
+            <td>{{article.createtime}}</td>
+            <td>{{article.state == '0' ? '未审核' : article.state == '1' ? '审核通过':'审核未通过'}}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    var vue = new Vue({
+        el: "#app",
+        data: {
+            articles: []
+        },
+        methods: {
+            fun1(title) {
+                document.getElementById("title").innerHTML = title;
+            },
+            fun2() {
+                document.getElementById("title").innerHTML = "&nbsp;";
+            }
+        },
+        created() {
+            //初始化加载数据
+            axios.get("http://localhost:8000/api/article/findAll").then(res => {
+                this.articles = res.data;
+            }).catch(err => alert(err + " 服务器正忙，请稍后再试"));
+        },
+
+    });
+</script>
+</html>

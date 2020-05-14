@@ -1,0 +1,18 @@
+server:
+  port: 80
+
+eureka:
+  instance:
+    hostname: localhost
+
+  client:
+    service-url:
+      defaultZone: http://localhost:8671/eureka
+    #false表示不向注册中心注册自己。是否将自己的路径注册到eureka上，只有提供方需要
+    register-with-eureka: true
+    #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务，消费方需要
+    fetch-registry: true
+
+spring:
+  application:
+    name: eureka-cousurmer

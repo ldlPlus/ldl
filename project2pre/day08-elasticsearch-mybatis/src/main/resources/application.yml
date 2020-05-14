@@ -1,0 +1,22 @@
+es:
+  host: 192.168.31.42
+  port: 9200
+  scheme: http
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.31.42:3306/es?serverTimezone=UTC
+    #    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    plus:
+      ldl:
+        day08elasticsearchmybatis:
+          mapper: debug

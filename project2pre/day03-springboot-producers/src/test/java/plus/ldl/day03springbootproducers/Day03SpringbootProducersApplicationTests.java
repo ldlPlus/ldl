@@ -22,14 +22,14 @@ class Day03SpringbootProducersApplicationTests {
     }
 
     /**
-     *
+     * 32个线程运行rabbitmq，测试极限
      */
     @Test
     public void test22() throws Exception {
         for (int i = 0; i < 32; i++) {
             executorService.execute(() -> {
                 for (int j = 0; j < 1000000; j++) {
-                    rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, "boot.hello",
+                    rabbitTemplate.convertAndSend(RabbitMQConfig.TOPIC_EXCHANGE_NAME, "boot.hello",
                             Thread.currentThread().getName() + "  -  " + j +
                                     "    boot  rabbitmq hello ...");
                 }

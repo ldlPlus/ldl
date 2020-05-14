@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.ldl.user.mapper.ArticleMapper">
+    <resultMap id="BaseResultMap" type="plus.ldl.user.domain.Article">
+        <!--@mbg.generated-->
+        <!--@Table t_article-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
+        <result column="authorid" jdbcType="BIGINT" property="authorid"/>
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="state" jdbcType="CHAR" property="state"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, title, content, authorid, createtime, `state`
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_article
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete from t_article
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="plus.ldl.user.domain.Article"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_article (title, content, authorid,
+        createtime, `state`)
+        values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}, #{authorid,jdbcType=BIGINT},
+        #{createtime,jdbcType=TIMESTAMP}, #{state,jdbcType=CHAR})
+    </insert>
+    <update id="updateByPrimaryKey" parameterType="plus.ldl.user.domain.Article">
+        <!--@mbg.generated-->
+        update t_article
+        set title = #{title,jdbcType=VARCHAR},
+        content = #{content,jdbcType=LONGVARCHAR},
+        authorid = #{authorid,jdbcType=BIGINT},
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+        `state` = #{state,jdbcType=CHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="findAll" resultMap="BaseResultMap">
+        select *
+        from t_article
+    </select>
+</mapper>

@@ -1,7 +1,9 @@
 spring:
   rabbitmq:
     host: 192.168.31.247
-#    port: 5672
-#    username: heima
-#    password: heima
-#    virtual-host: /itcast
+    port: 5672
+    username: heima
+    password: heima
+    virtual-host: /itcast
+    TOPIC_EXCHANGE_NAME: boot_topic_exchange
+    TOPIC_QUEUE_NAME: boot_queue
