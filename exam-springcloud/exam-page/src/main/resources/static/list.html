@@ -27,7 +27,10 @@
             <td>{{article.title}}</td>
             <td>{{article.authorid}}</td>
             <td>{{article.createtime}}</td>
-            <td>{{article.state == '0' ? '未审核' : article.state == '1' ? '审核通过':'审核未通过'}}</td>
+            <!--<td>{{article.state == '0' ? '未审核' : article.state == '1' ? '审核通过':'审核未通过'}}</td>-->
+            <td v-if="article.state == '0'">未审核</td>
+            <td v-else-if="article.state == '1'">审核通过</td>
+            <td v-else>审核未通过</td>
         </tr>
 
         </tbody>

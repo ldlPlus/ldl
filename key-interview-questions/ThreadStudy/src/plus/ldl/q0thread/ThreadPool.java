@@ -9,6 +9,10 @@ import java.util.concurrent.Executors;
  */
 public class ThreadPool {
     public static void main(String[] args) {
+
+    }
+
+    public static void getThreadPool() {
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
         threadPool.execute(() -> {
             for (int i = 0; i <= 100; i++) {
@@ -19,6 +23,5 @@ public class ThreadPool {
         });
         threadPool.shutdown();
         // threadPool.submit()
-
     }
 }

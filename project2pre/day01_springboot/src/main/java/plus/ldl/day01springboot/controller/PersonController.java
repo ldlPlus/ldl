@@ -19,9 +19,9 @@ public class PersonController {
     @Autowired
     private Environment environment;
 
-    @GetMapping("/person1")
-    public Person person1() {
+    @GetMapping("/")
+    public String person1() {
         System.out.println("environment = " + environment);
-        return person;
+        return environment.toString();
     }
 }
