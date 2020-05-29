@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/eladmin?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+
+
+
+name: "hhaha \\t \\n"
+age: 'hha \t \n'

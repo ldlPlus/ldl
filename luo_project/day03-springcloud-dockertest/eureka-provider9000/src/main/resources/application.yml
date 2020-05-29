@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: eureka-provider
+
+server:
+  port: 9000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:9524/eureka
+  #     defaultZone: http://localhost:9524/eureka
+  instance:
+    hostname: eureka-provider  #实例名称必须是网络，最后就是走的这个路径

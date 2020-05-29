@@ -1,0 +1,6 @@
+server:
+  port: 9524
+
+spring:
+  application:
+    name: eureka-server-config
