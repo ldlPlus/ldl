@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plus.ldl.service.goods.mapper.TemplateMapper">
+  <resultMap id="BaseResultMap" type="plus.ldl.goods.domain.Template">
+    <!--@mbg.generated generated on Tue Jun 02 14:27:04 CST 2020.-->
+    <!--@Table tb_template-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="spec_num" jdbcType="INTEGER" property="specNum" />
+    <result column="para_num" jdbcType="INTEGER" property="paraNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Tue Jun 02 14:27:04 CST 2020.-->
+    id, `name`, spec_num, para_num
+  </sql>
+</mapper>

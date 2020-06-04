@@ -143,4 +143,18 @@ class MapperplusdemoApplicationTests {
     public void test142() throws Exception {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
     }
+
+    /**
+     *
+     */
+    @Test
+    public void test151() throws Exception {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id");
+        List<User> users = userMapper.selectList(queryWrapper);
+        for (User user : users) {
+
+        }
+
+    }
 }
