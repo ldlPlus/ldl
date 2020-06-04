@@ -29,7 +29,7 @@ public class FileUploadController {
 
         // 拼接访问http://192.168.211.132:8080/group1/M00/00/00/wKjThF0DBzaAP23MAAXZ2mMp9oM26.jpeg
 
-        String url = "http://192.168.31.42:8080/" + upload[0] + "/" + upload[1];
+        String url = FastDFSUtil.getTrackerInfo() + "/" + upload[0] + "/" + upload[1];
         return Result.ok().message("上传成功").data(url);
     }
 }
