@@ -66,4 +66,6 @@ public interface SpecService {
 
 
     List<Spec> findByCategory(Integer categoryId);
+
+    List<Map> findListByCategoryName(String categoryName);
 }

@@ -66,4 +66,6 @@ public interface BrandService {
 
 
     List<Brand> findByCategory(Integer categoryId);
+
+    List<Map> findListByCategoryName(String categoryName);
 }

@@ -117,6 +117,11 @@ public class BrandServiceImpl implements BrandService {
         return brandMapper.findByCategory(categoryId);
     }
 
+    @Override
+    public List<Map> findListByCategoryName(String categoryName) {
+        return brandMapper.findListByCategoryName(categoryName);
+    }
+
     /**
      * 构建查询对象
      *
