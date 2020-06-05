@@ -16,6 +16,7 @@ public interface SpecService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -64,6 +65,5 @@ public interface SpecService {
     Page<Spec> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-
-
+    List<Spec> findByCategory(Integer categoryId);
 }

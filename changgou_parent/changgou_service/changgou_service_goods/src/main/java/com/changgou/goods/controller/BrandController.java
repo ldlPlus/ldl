@@ -107,8 +107,8 @@ public class BrandController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
-    @GetMapping("/list/{categoryId}")
-    public Result findByCategory(@PathVariable("categoryId") Integer categoryId) {
+    @GetMapping("/category/{id}")
+    public Result findByCategory(@PathVariable("id") Integer categoryId) {
         List<Brand> categories = brandService.findByCategory(categoryId);
         return new Result(true, StatusCode.OK, "查询成功", categories);
     }

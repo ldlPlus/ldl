@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BrandMapper extends Mapper<Brand> {
 
-    @Select("select * from tb_brand")
+    @Select("select tb.* from changgou_goods.tb_brand tb,changgou_goods.tb_category_brand tcb where tb.id=tcb.brand_id and tcb.category_id=#{categoryId} ")
     List<Brand> findByCategory(Integer categoryId);
 }
