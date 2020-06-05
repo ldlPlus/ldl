@@ -16,6 +16,7 @@ public interface BrandService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -64,6 +65,5 @@ public interface BrandService {
     Page<Brand> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-
-
+    List<Brand> findByCategory(Integer categoryId);
 }

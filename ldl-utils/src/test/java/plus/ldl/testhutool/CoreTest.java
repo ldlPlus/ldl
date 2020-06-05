@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author ldl.plus
  * @date 2020年05月16日  20:01
- * 测试胡桃里-core模块
+ * 测试hutool-core模块
  */
 public class CoreTest {
 
