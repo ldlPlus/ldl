@@ -1,15 +1,23 @@
 package com.changgou.goods.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.changgou.entity.util.IdWorker;
+import com.changgou.goods.dao.CategoryBrandMapper;
+import com.changgou.goods.dao.CategoryMapper;
+import com.changgou.goods.dao.SkuMapper;
 import com.changgou.goods.dao.SpuMapper;
-import com.changgou.goods.pojo.Goods;
-import com.changgou.goods.pojo.Spu;
+import com.changgou.goods.pojo.*;
 import com.changgou.goods.service.SpuService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +27,33 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     private SpuMapper spuMapper;
 
+    @Autowired
+    private IdWorker idWorker;
+
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Autowired
+    private SkuMapper skuMapper;
+
+    @Autowired
+    private CategoryBrandMapper categoryBrandMapper;
+
+    @Override
+    public void audit(Long spuId) {
+        // 查询商品
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        if ("1".equals(spu.getIsDelete())) {
+            // “1” 代表已删除，不用审核
+            throw new RuntimeException("商品已删除");
+        }
+        // 审核通过
+        spu.setStatus("1");
+        // 上架
+        spu.setIsMarketable("1");
+        spuMapper.updateByPrimaryKeySelective(spu);
+
+    }
 
     /**
      * 查询全部列表
@@ -45,22 +80,92 @@ public class SpuServiceImpl implements SpuService {
     /**
      * 增加
      *
-     * @param spu
+     * @param goods
      */
     @Override
-    public void add(Spu spu) {
-        spuMapper.insert(spu);
+    public void add(Goods goods) {
+        // 添加spu
+        Spu spu = goods.getSpu();
+        if (spu.getId() == null) {
+            spu.setId(idWorker.nextId() + "");
+            spu.setIsDelete("0");
+            spu.setIsMarketable("0");
+            spu.setStatus("0");
+            spuMapper.insertSelective(spu);
+        } else {
+            spuMapper.updateByPrimaryKeySelective(spu);
+            Sku sku = new Sku();
+            sku.setSpuId(spu.getId());
+            skuMapper.delete(sku);
+        }
+        saveSkus(goods);
+
+    }
+
+    private void saveSkus(Goods goods) {
+        Spu spu = goods.getSpu();
+        // 添加sku
+        // 设置品牌与分类的关联信息
+        CategoryBrand categoryBrand = new CategoryBrand();
+        categoryBrand.setBrandId(spu.getBrandId());
+        categoryBrand.setCategoryId(spu.getCategory3Id());
+        int categoryBrandCount = categoryBrandMapper.selectCount(categoryBrand);
+        // 如果等于0 建立关联关系
+        if (categoryBrandCount == 0) {
+            categoryBrandMapper.insert(categoryBrand);
+        }
+
+        List<Sku> skus = goods.getSkus();
+        if (skus != null && !skus.isEmpty()) {
+            for (Sku sku : skus) {
+                sku.setId(String.valueOf(idWorker.nextId()));
+                if (StringUtils.isEmpty(sku.getSpec())) {
+                    sku.setSpec("{}");
+                }
+                // sku名称
+                StringBuilder name = new StringBuilder(spu.getName());
+                // 将spec转换成map
+                Map specMap = JSON.parseObject(sku.getSpec(), Map.class);
+                if (specMap != null && !specMap.isEmpty()) {
+                    for (Object value : specMap.values()) {
+                        name.append(" ").append(value);
+                    }
+                }
+                sku.setName(name.toString());
+                // 设置spu ID
+                sku.setSpuId(spu.getId());
+                sku.setUpdateTime(new Date());
+                sku.setCreateTime(new Date());
+
+                // 查询分类id
+                Category category = categoryMapper.selectByPrimaryKey(spu.getCategory3Id());
+                sku.setCategoryId(category.getId());
+                sku.setCategoryName(category.getName());
+
+                skuMapper.insertSelective(sku);
+            }
+        }
     }
 
 
     /**
      * 修改
      *
-     * @param spu
+     * @param goods
      */
     @Override
-    public void update(Spu spu) {
+    @Transactional
+    public void update(Goods goods) {
+        // 修改spu
+        Spu spu = goods.getSpu();
         spuMapper.updateByPrimaryKey(spu);
+        // 删除sku
+        Example example = new Example(Sku.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("spuId", spu.getId());
+        skuMapper.deleteByExample(example);
+        // 添加新sku
+        this.saveSkus(goods);
     }
 
     /**
@@ -115,8 +220,70 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public int saveGoods(Goods goods) {
-        return 0;
+    public Goods findGoodsById(String id) {
+        Goods goods = new Goods();
+        //spu
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        goods.setSpu(spu);
+        //skuList
+        Example example = new Example(Sku.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andEqualTo("spuId", id);
+        List<Sku> skus = skuMapper.selectByExample(example);
+        goods.setSkus(skus);
+
+        return goods;
+    }
+
+    @Override
+    public void pull(Long spuId) {
+        // 查询商品
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        if ("1".equals(spu.getIsDelete())) {
+            // “1” 代表已删除，不用审核
+            throw new RuntimeException("商品已删除");
+        }
+        // 审核通过
+        spu.setStatus("1");
+        // 下架
+        spu.setIsMarketable("0");
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    @Override
+    public void putMany(Long spuId) {
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        // 上架
+        if ("1".equals(spu.getIsDelete())) {
+            // 已删除
+            throw new RuntimeException("商品已删除");
+        }
+        if ("1".equals(spu.getStatus())) {
+            throw new RuntimeException("商品未审核");
+        }
+        spu.setIsMarketable("1");
+        spuMapper.updateByPrimaryKeySelective(spu);
+
+    }
+
+    @Override
+    public void putMany(Long[] spuIds) {
+        // if (spuIds != null && spuIds.length > 0) {
+        //     for (Long spuId : spuIds) {
+        //         this.putMany(spuId);
+        //     }
+        // }
+        Example example = new Example(Spu.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andIn("spuId", Arrays.asList(spuIds));
+        criteria.andEqualTo("isDelete", "0");
+        criteria.andEqualTo("status", "1");
+        Spu spu = new Spu();
+        spu.setIsMarketable("1");
+        spuMapper.updateByExampleSelective(spu, example);
+
     }
 
     /**
@@ -222,5 +389,6 @@ public class SpuServiceImpl implements SpuService {
         }
         return example;
     }
+
 
 }

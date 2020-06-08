@@ -9,6 +9,13 @@ import java.util.Map;
 
 public interface SpuService {
 
+    /**
+     * 商品审核
+     *
+     * @param spuId
+     */
+    void audit(Long spuId);
+
     /***
      * 查询所有
      * @return
@@ -25,15 +32,15 @@ public interface SpuService {
 
     /***
      * 新增
-     * @param spu
+     * @param goods
      */
-    void add(Spu spu);
+    void add(Goods goods);
 
     /***
      * 修改
-     * @param spu
+     * @param goods
      */
-    void update(Spu spu);
+    void update(Goods goods);
 
     /***
      * 删除
@@ -66,11 +73,11 @@ public interface SpuService {
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-    /**
-     * 添加商品数据
-     *
-     * @param goods
-     * @return
-     */
-    int saveGoods(Goods goods);
+    Goods findGoodsById(String id);
+
+    void pull(Long spuId);
+
+    void putMany(Long spuId);
+
+    void putMany(Long[] spuIds);
 }

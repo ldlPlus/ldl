@@ -22,12 +22,6 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
-    @PostMapping("/")
-    public Result saveGoods(@RequestBody Goods goods) {
-        int temp = spuService.saveGoods(goods);
-        return new Result(true, StatusCode.OK, "添加成功", temp);
-    }
-
     /**
      * 查询全部数据
      *
@@ -46,33 +40,31 @@ public class SpuController {
      */
     @GetMapping("/{id}")
     public Result findById(@PathVariable String id) {
-        Spu spu = spuService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", spu);
+        Goods goods = spuService.findGoodsById(id);
+        return new Result(true, StatusCode.OK, "查询成功", goods);
     }
 
 
     /***
      * 新增数据
-     * @param spu
+     * @param goods
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Spu spu) {
-        spuService.add(spu);
+    public Result add(@RequestBody Goods goods) {
+        spuService.add(goods);
         return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
     /***
      * 修改数据
-     * @param spu
-     * @param id
+     * @param goods
      * @return
      */
     @PutMapping(value = "/{id}")
-    public Result update(@RequestBody Spu spu, @PathVariable String id) {
-        spu.setId(id);
-        spuService.update(spu);
+    public Result update(@RequestBody Goods goods) {
+        spuService.update(goods);
         return new Result(true, StatusCode.OK, "修改成功");
     }
 
@@ -114,5 +106,42 @@ public class SpuController {
         return new Result(true, StatusCode.OK, "查询成功", pageResult);
     }
 
+    /**
+     * 商品审核
+     *
+     * @param spuId
+     * @return
+     */
+    @PutMapping("/audit/{spuId}")
+    public Result audit(@PathVariable Long spuId) {
+        spuService.audit(spuId);
+        return new Result(true, StatusCode.OK, "审核成功");
+    }
 
+    /**
+     * 商品下架
+     */
+    @PutMapping("/pull/{spuId}")
+    public Result pull(@PathVariable Long spuId) {
+        spuService.pull(spuId);
+        return new Result(true, StatusCode.OK, "下架成功");
+    }
+
+    /**
+     * 商品上架
+     */
+    @PutMapping("/put/{spuId}")
+    public Result put(@PathVariable Long spuId) {
+        spuService.putMany(spuId);
+        return new Result(true, StatusCode.OK, "上架成功");
+    }
+
+    /**
+     * 批量上架
+     */
+    @PutMapping("/put/many")
+    public Result putMany(@RequestBody Long[] spuIds) {
+        spuService.putMany(spuIds);
+        return new Result(true, StatusCode.OK, "上架成功");
+    }
 }
