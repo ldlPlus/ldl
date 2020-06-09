@@ -80,12 +80,12 @@ public class SpuServiceImpl implements SpuService {
     /**
      * 增加
      *
-     * @param goods
+     * @param goodsDto
      */
     @Override
-    public void add(Goods goods) {
+    public void add(GoodsDto goodsDto) {
         // 添加spu
-        Spu spu = goods.getSpu();
+        Spu spu = goodsDto.getSpu();
         if (spu.getId() == null) {
             spu.setId(idWorker.nextId() + "");
             spu.setIsDelete("0");
@@ -98,12 +98,12 @@ public class SpuServiceImpl implements SpuService {
             sku.setSpuId(spu.getId());
             skuMapper.delete(sku);
         }
-        saveSkus(goods);
+        saveSkus(goodsDto);
 
     }
 
-    private void saveSkus(Goods goods) {
-        Spu spu = goods.getSpu();
+    private void saveSkus(GoodsDto goodsDto) {
+        Spu spu = goodsDto.getSpu();
         // 添加sku
         // 设置品牌与分类的关联信息
         CategoryBrand categoryBrand = new CategoryBrand();
@@ -115,7 +115,7 @@ public class SpuServiceImpl implements SpuService {
             categoryBrandMapper.insert(categoryBrand);
         }
 
-        List<Sku> skus = goods.getSkus();
+        List<Sku> skus = goodsDto.getSkus();
         if (skus != null && !skus.isEmpty()) {
             for (Sku sku : skus) {
                 sku.setId(String.valueOf(idWorker.nextId()));
@@ -151,13 +151,13 @@ public class SpuServiceImpl implements SpuService {
     /**
      * 修改
      *
-     * @param goods
+     * @param goodsDto
      */
     @Override
     @Transactional
-    public void update(Goods goods) {
+    public void update(GoodsDto goodsDto) {
         // 修改spu
-        Spu spu = goods.getSpu();
+        Spu spu = goodsDto.getSpu();
         spuMapper.updateByPrimaryKey(spu);
         // 删除sku
         Example example = new Example(Sku.class);
@@ -165,7 +165,7 @@ public class SpuServiceImpl implements SpuService {
         criteria.andEqualTo("spuId", spu.getId());
         skuMapper.deleteByExample(example);
         // 添加新sku
-        this.saveSkus(goods);
+        this.saveSkus(goodsDto);
     }
 
     /**
@@ -220,23 +220,24 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public Goods findGoodsById(String id) {
-        Goods goods = new Goods();
+    public GoodsDto findGoodsById(String id) {
+        GoodsDto goodsDto = new GoodsDto();
         //spu
         Spu spu = spuMapper.selectByPrimaryKey(id);
-        goods.setSpu(spu);
+        goodsDto.setSpu(spu);
         //skuList
         Example example = new Example(Sku.class);
         Example.Criteria criteria = example.createCriteria();
 
         criteria.andEqualTo("spuId", id);
         List<Sku> skus = skuMapper.selectByExample(example);
-        goods.setSkus(skus);
+        goodsDto.setSkus(skus);
 
-        return goods;
+        return goodsDto;
     }
 
     @Override
+    @Transactional
     public void pull(Long spuId) {
         // 查询商品
         Spu spu = spuMapper.selectByPrimaryKey(spuId);
@@ -252,7 +253,8 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
-    public void putMany(Long spuId) {
+    @Transactional
+    public void put(Long spuId) {
         Spu spu = spuMapper.selectByPrimaryKey(spuId);
         // 上架
         if ("1".equals(spu.getIsDelete())) {
@@ -268,6 +270,7 @@ public class SpuServiceImpl implements SpuService {
     }
 
     @Override
+    @Transactional
     public void putMany(Long[] spuIds) {
         // if (spuIds != null && spuIds.length > 0) {
         //     for (Long spuId : spuIds) {
@@ -283,6 +286,21 @@ public class SpuServiceImpl implements SpuService {
         Spu spu = new Spu();
         spu.setIsMarketable("1");
         spuMapper.updateByExampleSelective(spu, example);
+
+    }
+
+    @Override
+    @Transactional
+    public void realDel(Long spuId) {
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        if ("0".equals(spu.getIsDelete())) {
+            // 未逻辑删除，不能物理删除
+            throw new RuntimeException("未进行逻辑删除，不能物理删除");
+        }
+        Sku sku = new Sku();
+        sku.setSpuId(spuId + "");
+        skuMapper.delete(sku);
+        spuMapper.deleteByPrimaryKey(spuId);
 
     }
 

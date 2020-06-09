@@ -1,7 +1,6 @@
 package com.changgou.system.filter;
 
 import com.changgou.system.util.JwtUtil;
-import io.jsonwebtoken.Claims;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -33,7 +32,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         if (request.getURI().getPath().contains("/admin/login")) {
             return chain.filter(exchange);
         }
-        if ("POST".equals(request.getMethod()) && request.getURI().getPath().endsWith("/admin")) {
+        if ("POST".equals(request.getMethod().toString()) && request.getURI().getPath().endsWith("/admin")) {
             return chain.filter(exchange);
         }
         //4.获取当前的所有请求头信息
@@ -48,7 +47,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         //6.1如果令牌存在,解析jwt令牌,判断该令牌是否合法,如果令牌不合法,则向客户端返回错误提示信息
         try {
             // 解析令牌
-            Claims claims = JwtUtil.parseJWT(jwtToken);
+            JwtUtil.parseJWT(jwtToken);
         } catch (Exception e) {
             e.printStackTrace();
             // 令牌解析失败

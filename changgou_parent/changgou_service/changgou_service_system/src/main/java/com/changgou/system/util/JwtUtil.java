@@ -41,12 +41,18 @@ public class JwtUtil {
         SecretKey secretKey = generalKey();
 
         JwtBuilder builder = Jwts.builder()
-                .setId(id)              //唯一的ID
-                .setSubject(subject)   // 主题  可以是JSON数据
-                .setIssuer("admin")     // 签发者
-                .setIssuedAt(now)      // 签发时间
-                .signWith(signatureAlgorithm, secretKey) //使用HS256对称加密算法签名, 第二个参数为秘钥
-                .setExpiration(expDate);// 设置过期时间
+                //唯一的ID
+                .setId(id)
+                // 主题  可以是JSON数据
+                .setSubject(subject)
+                // 签发者
+                .setIssuer("admin")
+                // 签发时间
+                .setIssuedAt(now)
+                //使用HS256对称加密算法签名, 第二个参数为秘钥
+                .signWith(signatureAlgorithm, secretKey)
+                // 设置过期时间
+                .setExpiration(expDate);
         return builder.compact();
     }
 

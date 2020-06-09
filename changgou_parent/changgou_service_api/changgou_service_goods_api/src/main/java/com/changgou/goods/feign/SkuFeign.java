@@ -15,4 +15,7 @@ import java.util.List;
 public interface SkuFeign {
     @GetMapping("/sku/spu/{spuId}")
     List<Sku> findSkusBySpuId(@PathVariable("spuId") String spuId);
+
+    @GetMapping("/sku/spu/{page}/{size}")
+    List<Sku> findSkusByPage(@PathVariable("page") Integer page, @PathVariable("size") Integer size);
 }

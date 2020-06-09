@@ -72,6 +72,13 @@ public class ESManagerServiceImpl implements ESManagerService {
         }
     }
 
+    @Override
+    public void importByPage(Integer page, Integer size) {
+        // 查询sku集合
+        List<Sku> skuList = skuFeign.findSkusByPage(page, size);
+        saveSkuInfoList(skuList);
+    }
+
     private void saveSkuInfoList(List<Sku> skuList) {
         if (skuList == null || skuList.isEmpty()) {
             throw new RuntimeException("当前没有数据被查询到，无法导入索引库");

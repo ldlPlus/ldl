@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2020年06月05日  16:49
  * 商品信息组合对象
  */
-public class Goods implements Serializable {
+public class GoodsDto implements Serializable {
 
     private List<Sku> skus;
 

@@ -24,4 +24,6 @@ public interface ESManagerService {
      * 根据spuId删除es索引库中相关的sku数据
      */
     void deleteDataBySpuId(String spuId);
+
+    void importByPage(Integer page, Integer size);
 }

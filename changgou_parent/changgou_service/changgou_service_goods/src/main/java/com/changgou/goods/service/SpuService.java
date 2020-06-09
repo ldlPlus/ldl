@@ -1,6 +1,6 @@
 package com.changgou.goods.service;
 
-import com.changgou.goods.pojo.Goods;
+import com.changgou.goods.pojo.GoodsDto;
 import com.changgou.goods.pojo.Spu;
 import com.github.pagehelper.Page;
 
@@ -32,15 +32,15 @@ public interface SpuService {
 
     /***
      * 新增
-     * @param goods
+     * @param goodsDto
      */
-    void add(Goods goods);
+    void add(GoodsDto goodsDto);
 
     /***
      * 修改
-     * @param goods
+     * @param goodsDto
      */
-    void update(Goods goods);
+    void update(GoodsDto goodsDto);
 
     /***
      * 删除
@@ -73,11 +73,13 @@ public interface SpuService {
     Page<Spu> findPage(Map<String, Object> searchMap, int page, int size);
 
 
-    Goods findGoodsById(String id);
+    GoodsDto findGoodsById(String id);
 
     void pull(Long spuId);
 
-    void putMany(Long spuId);
+    void put(Long spuId);
 
     void putMany(Long[] spuIds);
+
+    void realDel(Long spuId);
 }

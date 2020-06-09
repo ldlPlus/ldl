@@ -1,6 +1,5 @@
 package com.changgou.search.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.changgou.search.pojo.SkuInfo;
 import com.changgou.search.service.SearchService;
 import org.apache.commons.lang.StringUtils;
@@ -14,11 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchResultMapper;
 import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
-import org.springframework.data.elasticsearch.core.aggregation.impl.AggregatedPageImpl;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,14 +57,8 @@ public class SearchServiceImpl implements SearchService {
                         @Override
                         public <T> AggregatedPage<T> mapResults(SearchResponse searchResponse, Class<T> aClass, Pageable pageable) {
                             // 查询结果操作
-                            ArrayList<T> arrayList = new ArrayList<>();
-                            SearchHit[] hits = searchResponse.getHits().getHits();
-                            for (SearchHit hit : hits) {
-                                String jsonStr = hit.getSourceAsString();
-                                SkuInfo skuInfo = JSON.parseObject(jsonStr, SkuInfo.class);
-                                arrayList.add((T) skuInfo);
-                            }
-                            return new AggregatedPageImpl<>(arrayList, pageable, arrayList.size(), searchResponse.getAggregations());
+
+                            return null;
                         }
 
                         @Override

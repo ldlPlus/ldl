@@ -19,6 +19,7 @@ public class GateWayApplication {
         SpringApplication.run(GateWayApplication.class, args);
     }
 
+    // TODO: 2020/6/8 just
     @Bean
     public KeyResolver ipKeyResolver() {
         return new KeyResolver() {
