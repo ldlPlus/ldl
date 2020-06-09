@@ -3,7 +3,7 @@ package com.changgou.goods.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
-import com.changgou.goods.pojo.Goods;
+import com.changgou.goods.pojo.GoodsDto;
 import com.changgou.goods.pojo.Spu;
 import com.changgou.goods.service.SpuService;
 import com.github.pagehelper.Page;
@@ -40,31 +40,31 @@ public class SpuController {
      */
     @GetMapping("/{id}")
     public Result findById(@PathVariable String id) {
-        Goods goods = spuService.findGoodsById(id);
-        return new Result(true, StatusCode.OK, "查询成功", goods);
+        GoodsDto goodsDto = spuService.findGoodsById(id);
+        return new Result(true, StatusCode.OK, "查询成功", goodsDto);
     }
 
 
     /***
      * 新增数据
-     * @param goods
+     * @param goodsDto
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Goods goods) {
-        spuService.add(goods);
+    public Result add(@RequestBody GoodsDto goodsDto) {
+        spuService.add(goodsDto);
         return new Result(true, StatusCode.OK, "添加成功");
     }
 
 
     /***
      * 修改数据
-     * @param goods
+     * @param goodsDto
      * @return
      */
     @PutMapping(value = "/{id}")
-    public Result update(@RequestBody Goods goods) {
-        spuService.update(goods);
+    public Result update(@RequestBody GoodsDto goodsDto) {
+        spuService.update(goodsDto);
         return new Result(true, StatusCode.OK, "修改成功");
     }
 
@@ -132,7 +132,7 @@ public class SpuController {
      */
     @PutMapping("/put/{spuId}")
     public Result put(@PathVariable Long spuId) {
-        spuService.putMany(spuId);
+        spuService.put(spuId);
         return new Result(true, StatusCode.OK, "上架成功");
     }
 
@@ -143,5 +143,11 @@ public class SpuController {
     public Result putMany(@RequestBody Long[] spuIds) {
         spuService.putMany(spuIds);
         return new Result(true, StatusCode.OK, "上架成功");
+    }
+
+    @DeleteMapping("/realDel/{spuId}")
+    public Result realDel(@PathVariable("spuId") Long spuId) {
+        spuService.realDel(spuId);
+        return new Result(true, StatusCode.OK, "真实删除成功");
     }
 }

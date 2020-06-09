@@ -16,6 +16,7 @@ public interface UserService {
 
     /**
      * 根据ID查询
+     *
      * @param username
      * @return
      */
@@ -35,7 +36,7 @@ public interface UserService {
 
     /***
      * 删除
-     * @param id
+     * @param username
      */
     void delete(String username);
 
@@ -62,8 +63,6 @@ public interface UserService {
      * @return
      */
     Page<User> findPage(Map<String, Object> searchMap, int page, int size);
-
-
 
 
 }

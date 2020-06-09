@@ -118,4 +118,12 @@ public class SkuController {
         return skuService.findList(searchMap);
     }
 
+    @GetMapping("/spu/{page}/{size}")
+    public List<Sku> findSkusByPage(@PathVariable("page") Integer page, @PathVariable("size") Integer size) {
+        HashMap<String, Object> searchMap = new HashMap<>();
+        searchMap.put("status", "1");
+        System.err.println("esManagerService = " + page + " 次循环");
+        return skuService.findPage(searchMap, page, size);
+    }
+
 }

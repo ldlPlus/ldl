@@ -4,14 +4,14 @@ spring:
   application:
     name: search
   rabbitmq:
-    host: 192.168.31.42
+    host: 49.235.230.115
   redis:
-    host: 192.168.31.42
+    host: 49.235.230.115
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
   elasticsearch:
     rest:
-      uris: http://192.168.31.42:9200
+      uris: http://49.235.230.115:9200
 eureka:
   client:
     service-url:

@@ -16,6 +16,7 @@ public interface SkuService {
 
     /**
      * 根据ID查询
+     *
      * @param id
      * @return
      */
@@ -62,8 +63,5 @@ public interface SkuService {
      * @return
      */
     Page<Sku> findPage(Map<String, Object> searchMap, int page, int size);
-
-
-
 
 }

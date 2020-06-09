@@ -8,6 +8,7 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 import java.util.Map;
 
+// @RegisterMapper
 public interface BrandMapper extends Mapper<Brand> {
 
     @Select("select tb.* from changgou_goods.tb_brand tb,changgou_goods.tb_category_brand tcb where tb.id=tcb.brand_id and tcb.category_id=#{categoryId} ")
