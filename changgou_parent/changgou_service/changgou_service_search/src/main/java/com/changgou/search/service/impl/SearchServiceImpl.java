@@ -183,8 +183,6 @@ public class SearchServiceImpl implements SearchService {
             return resultMap;
         }
 
-        // elasticsearchRestTemplate.queryForPage()
-
         // 封装查询结果
         return null;
     }
