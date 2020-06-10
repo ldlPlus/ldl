@@ -18,6 +18,7 @@ public class RabbitMqConfig {
     public static final String AD_UPDATE_QUEUE = "ad_update_queue";
     public static final String SEARCH_ADD_QUEUE = "search_add_queue";
     public static final String SEARCH_DEL_QUEUE = "search_del_queue";
+    public static final String PAGE_CREATE_QUEUE = "page_create_queue";
 
     /**
      * 定义交换机名称
@@ -41,6 +42,11 @@ public class RabbitMqConfig {
     @Bean(name = SEARCH_DEL_QUEUE)
     public Queue searchDelQueue() {
         return new Queue(SEARCH_DEL_QUEUE);
+    }
+
+    @Bean(name = PAGE_CREATE_QUEUE)
+    public Queue pageCreateQueue() {
+        return new Queue(PAGE_CREATE_QUEUE);
     }
 
     /**
@@ -68,6 +74,12 @@ public class RabbitMqConfig {
     @Bean
     public Binding goodsDownExchangeBinding(@Qualifier(SEARCH_DEL_QUEUE) Queue queue,
                                             @Qualifier(GOODS_DOWN_EXCHANGE) Exchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("").noargs();
+    }
+
+    @Bean
+    public Binding pageCreateExchangeBinding(@Qualifier(PAGE_CREATE_QUEUE) Queue queue,
+                                             @Qualifier(GOODS_UP_EXCHANGE) Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 }

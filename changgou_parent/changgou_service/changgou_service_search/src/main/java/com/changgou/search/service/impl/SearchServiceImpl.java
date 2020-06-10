@@ -27,10 +27,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -107,7 +104,7 @@ public class SearchServiceImpl implements SearchService {
                             Integer.parseInt(pageNum) - 1, Integer.parseInt(pageSize)));
             // 按照相关字段进行排序查询
             // 1、当前域 2、当前的排序操作 asc  desc
-            String sortFiled = condition.get("sortFiled");
+            String sortFiled = condition.get("sortField");
             String sortRule = condition.get("sortRule");
             if (StringUtils.isNotEmpty(sortFiled) && StringUtils.isNotEmpty(sortRule)) {
                 if ("asc".equalsIgnoreCase(sortRule)) {
@@ -175,7 +172,7 @@ public class SearchServiceImpl implements SearchService {
             // 封装规格分组的结果
             ParsedStringTerms specTerms = (ParsedStringTerms) page.getAggregation("skuSpec");
             List<String> specList = specTerms.getBuckets().stream().map(o -> o.getKeyAsString()).collect(Collectors.toList());
-            resultMap.put("specList", specList);
+            resultMap.put("specList", this.formatSpec(specList));
 
             // 封装当前页
             resultMap.put("pageNum", pageNum);
@@ -185,5 +182,38 @@ public class SearchServiceImpl implements SearchService {
 
         // 封装查询结果
         return null;
+    }
+
+    /**
+     * "{'颜色': '蓝色', '版本': '6GB+128GB'}",
+     * "{'颜色': '黑色', '版本': '6GB+128GB'}",
+     * "{'颜色': '蓝色', '版本': '6GB+64GB'}",
+     * "{'颜色': '黑色', '版本': '4GB+64GB'}",
+     * "{'颜色': '蓝色', '版本': '4GB+64GB'}",
+     * "{'颜色': '黑色', '版本': '6GB+64GB'}",
+     * "{'颜色': '粉色', '版本': '6GB+128GB'}",
+     * "{'颜色': '蓝色'}",
+     * "{'颜色': '黑色'}",
+     * "{'颜色': '金色', '版本': '4GB+64GB'}"
+     *
+     * @param specList
+     * @return
+     */
+    public Map<String, Set<String>> formatSpec(List<String> specList) {
+        HashMap<String, Set<String>> resultMap = new HashMap<>();
+        if (specList != null && !specList.isEmpty()) {
+            for (String specJson : specList) {
+                Map<String, String> specMap = JSON.parseObject(specJson, Map.class);
+                for (Map.Entry<String, String> specEntry : specMap.entrySet()) {
+                    Set<String> specSet = resultMap.get(specEntry.getKey());
+                    if (specSet == null) {
+                        specSet = new HashSet<>();
+                    }
+                    specSet.add(specEntry.getValue());
+                    resultMap.put(specEntry.getKey(), specSet);
+                }
+            }
+        }
+        return resultMap;
     }
 }
