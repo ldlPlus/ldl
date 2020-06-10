@@ -4,14 +4,16 @@ spring:
   application:
     name: search
   rabbitmq:
-    host: 49.235.230.115
+    host: www.ldl.plus
   redis:
-    host: 49.235.230.115
+    host: www.ldl.plus
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  thymeleaf:
+    cache: false
   elasticsearch:
     rest:
-      uris: http://49.235.230.115:9200
+      uris: http://www.ldl.plus:9200
 eureka:
   client:
     service-url:

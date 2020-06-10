@@ -39,9 +39,15 @@ public class SpuController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable String id) {
+    public Result<GoodsDto> findById(@PathVariable String id) {
         GoodsDto goodsDto = spuService.findGoodsById(id);
-        return new Result(true, StatusCode.OK, "查询成功", goodsDto);
+        return new Result<>(true, StatusCode.OK, "查询成功", goodsDto);
+    }
+
+    @GetMapping("/findSpuById/{id}")
+    public Result<Spu> findSpuById(@PathVariable String id) {
+        Spu spu = spuService.findById(id);
+        return new Result<>(true, StatusCode.OK, "查询成功", spu);
     }
 
 
@@ -51,9 +57,9 @@ public class SpuController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody GoodsDto goodsDto) {
+    public Result<GoodsDto> add(@RequestBody GoodsDto goodsDto) {
         spuService.add(goodsDto);
-        return new Result(true, StatusCode.OK, "添加成功");
+        return new Result<>(true, StatusCode.OK, "添加成功");
     }
 
 

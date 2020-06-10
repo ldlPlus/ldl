@@ -27,9 +27,9 @@ public class CategoryController {
      * @return
      */
     @GetMapping
-    public Result findAll() {
+    public Result<List<Category>> findAll() {
         List<Category> categoryList = categoryService.findAll();
-        return new Result(true, StatusCode.OK, "查询成功", categoryList);
+        return new Result<>(true, StatusCode.OK, "查询成功", categoryList);
     }
 
     /***
@@ -38,9 +38,9 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable Integer id) {
+    public Result<Category> findById(@PathVariable Integer id) {
         Category category = categoryService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", category);
+        return new Result<>(true, StatusCode.OK, "查询成功", category);
     }
 
 
