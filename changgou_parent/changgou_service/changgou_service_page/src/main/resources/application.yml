@@ -4,7 +4,7 @@ spring:
   application:
     name: page
   rabbitmq:
-    host: 49.235.230.115
+    host: www.ldl.plus
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
 eureka:
@@ -32,4 +32,4 @@ hystrix:
         isolation:
           strategy: SEMAPHORE
 # 生成静态页的位置
-pagepath: D:\items
+pagepath: C:\javaProject\ldl\changgou_parent\changgou_service\changgou_service_page\src\main\resources\static

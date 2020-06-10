@@ -14,12 +14,11 @@ import reactor.core.publisher.Mono;
  */
 @SpringBootApplication
 @EnableEurekaClient
-public class GateWayApplication {
+public class GateWayApplication9101 {
     public static void main(String[] args) {
-        SpringApplication.run(GateWayApplication.class, args);
+        SpringApplication.run(GateWayApplication9101.class, args);
     }
 
-    // TODO: 2020/6/8 just
     @Bean
     public KeyResolver ipKeyResolver() {
         return new KeyResolver() {

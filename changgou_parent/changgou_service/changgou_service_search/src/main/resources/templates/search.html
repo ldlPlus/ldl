@@ -58,7 +58,7 @@
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
                                     <input type="text" id="autocomplete" name="keywords"
-                                           th:value="${searchMap.keywords}"
+                                           th:value="${#maps.containsKey(searchMap,'keywords')?searchMap.keywords:''}"
                                            class="input-error input-xxlarge"/>
                                     <button class="sui-btn btn-xlarge btn-danger" type="submit">搜索</button>
                                 </div>
@@ -636,43 +636,6 @@
                     <ul class="type-list">
                         <li th:each="op,opStat:${spec.value}">
                             <a th:text="${op}" th:href="@{${url}('spec_'+${spec.key}=${op})}"></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fl ext"></div>
-            </div>
-            <div class="type-wrap">
-                <div class="fl key">显示屏尺寸</div>
-                <div class="fl value">
-                    <ul class="type-list">
-                        <li>
-                            <a>4.0-4.9英寸</a>
-                        </li>
-                        <li>
-                            <a>4.0-4.9英寸</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="fl ext"></div>
-            </div>
-            <div class="type-wrap">
-                <div class="fl key">摄像头像素</div>
-                <div class="fl value">
-                    <ul class="type-list">
-                        <li>
-                            <a>1200万以上</a>
-                        </li>
-                        <li>
-                            <a>800-1199万</a>
-                        </li>
-                        <li>
-                            <a>1200-1599万</a>
-                        </li>
-                        <li>
-                            <a>1600万以上</a>
-                        </li>
-                        <li>
-                            <a>无摄像头</a>
                         </li>
                     </ul>
                 </div>

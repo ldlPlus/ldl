@@ -28,7 +28,6 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         //2.获取响应对象
         ServerHttpResponse response = exchange.getResponse();
         //3.判断当前的请求是否为登录请求,如果是则直接放行
-        // TODO: 2020/6/5 注册方法有错
         if (request.getURI().getPath().contains("/admin/login")) {
             return chain.filter(exchange);
         }

@@ -25,18 +25,21 @@ spring:
                 key-resolver: "#{@ipKeyResolver}"
                 # 令牌桶每秒填充平均速率
                 redis-rate-limiter.replenishRate: 1
-                # 令牌桶总容量
-                redis-rate-limiter.burstCapacity: 1
+                # 令牌桶总容量 允许并发有4个请求[宽限的个数]
+                redis-rate-limiter.burstCapacity: 4
         - id: system
           uri: lb://system
           predicates:
             - Path=/system/**
           filters:
             - StripPrefix= 1
+            # 加前缀 并且路由
+            # - PrefixPath= /brand
   # 配置Redis 127.0.0.1可以省略配置
   redis:
-    host: 49.235.230.115
+    host: www.ldl.plus
     port: 6379
+    password: mypassword
 server:
   port: 9101
 eureka:

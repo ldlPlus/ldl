@@ -15,8 +15,8 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableEurekaClient
 @EnableFeignClients(basePackages = "com.changgou.goods.feign")
 @EnableElasticsearchRepositories(basePackages = "com.changgou.search.mapper")
-public class SearchApplication {
+public class SearchApplication9009 {
     public static void main(String[] args) {
-        SpringApplication.run(SearchApplication.class, args);
+        SpringApplication.run(SearchApplication9009.class, args);
     }
 }

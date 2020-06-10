@@ -11,9 +11,9 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @EnableEurekaClient
 @MapperScan(basePackages = {"com.changgou.goods.dao"})
-public class GoodsApplication {
+public class GoodsApplication9001 {
     public static void main(String[] args) {
-        SpringApplication.run(GoodsApplication.class);
+        SpringApplication.run(GoodsApplication9001.class);
     }
 
     @Value("${idWork.workerId:1}")
