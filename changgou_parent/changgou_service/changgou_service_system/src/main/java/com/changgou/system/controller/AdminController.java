@@ -30,9 +30,9 @@ public class AdminController {
      * @return
      */
     @GetMapping
-    public Result findAll() {
+    public Result<Admin> findAll() {
         List<Admin> adminList = adminService.findAll();
-        return new Result(true, StatusCode.OK, "查询成功", adminList);
+        return new Result<>(true, StatusCode.OK, "查询成功", adminList);
     }
 
     /***
@@ -41,9 +41,9 @@ public class AdminController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result findById(@PathVariable Integer id) {
+    public Result<Admin> findById(@PathVariable Integer id) {
         Admin admin = adminService.findById(id);
-        return new Result(true, StatusCode.OK, "查询成功", admin);
+        return new Result<>(true, StatusCode.OK, "查询成功", admin);
     }
 
 
