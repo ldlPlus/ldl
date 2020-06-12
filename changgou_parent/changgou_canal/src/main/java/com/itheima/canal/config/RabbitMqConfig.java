@@ -34,17 +34,17 @@ public class RabbitMqConfig {
         return new Queue(AD_UPDATE_QUEUE);
     }
 
-    @Bean(name = SEARCH_ADD_QUEUE)
+    @Bean
     public Queue searchAddQueue() {
         return new Queue(SEARCH_ADD_QUEUE);
     }
 
-    @Bean(name = SEARCH_DEL_QUEUE)
+    @Bean
     public Queue searchDelQueue() {
         return new Queue(SEARCH_DEL_QUEUE);
     }
 
-    @Bean(name = PAGE_CREATE_QUEUE)
+    @Bean
     public Queue pageCreateQueue() {
         return new Queue(PAGE_CREATE_QUEUE);
     }
@@ -52,12 +52,12 @@ public class RabbitMqConfig {
     /**
      * 申明交换机
      */
-    @Bean(name = GOODS_UP_EXCHANGE)
+    @Bean
     public Exchange goodsUpExchange() {
         return ExchangeBuilder.fanoutExchange(GOODS_UP_EXCHANGE).durable(true).build();
     }
 
-    @Bean(name = GOODS_DOWN_EXCHANGE)
+    @Bean
     public Exchange goodsDownExchange() {
         return ExchangeBuilder.fanoutExchange(GOODS_DOWN_EXCHANGE).durable(true).build();
     }
@@ -66,20 +66,20 @@ public class RabbitMqConfig {
      * 绑定
      */
     @Bean
-    public Binding goodsUpExchangeBinding(@Qualifier(SEARCH_ADD_QUEUE) Queue queue,
-                                          @Qualifier(GOODS_UP_EXCHANGE) Exchange exchange) {
+    public Binding goodsUpExchangeBinding(@Qualifier("searchAddQueue") Queue queue,
+                                          @Qualifier("goodsUpExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 
     @Bean
-    public Binding goodsDownExchangeBinding(@Qualifier(SEARCH_DEL_QUEUE) Queue queue,
-                                            @Qualifier(GOODS_DOWN_EXCHANGE) Exchange exchange) {
+    public Binding goodsDownExchangeBinding(@Qualifier("searchDelQueue") Queue queue,
+                                            @Qualifier("goodsDownExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 
     @Bean
-    public Binding pageCreateExchangeBinding(@Qualifier(PAGE_CREATE_QUEUE) Queue queue,
-                                             @Qualifier(GOODS_UP_EXCHANGE) Exchange exchange) {
+    public Binding pageCreateExchangeBinding(@Qualifier("pageCreateQueue") Queue queue,
+                                             @Qualifier("goodsUpExchange") Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("").noargs();
     }
 }

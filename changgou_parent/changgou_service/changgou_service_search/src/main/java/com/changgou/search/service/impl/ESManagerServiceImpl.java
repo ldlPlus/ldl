@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author ldl.plus
@@ -83,13 +84,25 @@ public class ESManagerServiceImpl implements ESManagerService {
         if (skuList == null || skuList.isEmpty()) {
             throw new RuntimeException("当前没有数据被查询到，无法导入索引库");
         }
-        String jsonSkuList = JSON.toJSONString(skuList);
-        List<SkuInfo> skuInfoList = JSON.parseArray(jsonSkuList, SkuInfo.class);
-        for (SkuInfo skuInfo : skuInfoList) {
-            // 将规格信息转换为map
-            Map specMap = JSON.parseObject(skuInfo.getSpec(), Map.class);
+
+        // lameda表达式
+        List<SkuInfo> infoList = skuList.stream().map(sku -> {
+            String jsonString = JSON.toJSONString(sku);
+            SkuInfo skuInfo = JSON.parseObject(jsonString, SkuInfo.class);
+            Map<String, Object> specMap = JSON.parseObject(skuInfo.getSpec(), Map.class);
             skuInfo.setSpecMap(specMap);
-        }
-        esManagerMapper.saveAll(skuInfoList);
+            return skuInfo;
+        }).collect(Collectors.toList());
+        esManagerMapper.saveAll(infoList);
+
+        // 普通方法
+        // String jsonSkuList = JSON.toJSONString(skuList);
+        // List<SkuInfo> skuInfoList = JSON.parseArray(jsonSkuList, SkuInfo.class);
+        // for (SkuInfo skuInfo : skuInfoList) {
+        //     // 将规格信息转换为map
+        //     Map specMap = JSON.parseObject(skuInfo.getSpec(), Map.class);
+        //     skuInfo.setSpecMap(specMap);
+        // }
+        // esManagerMapper.saveAll(skuInfoList);
     }
 }

@@ -29,13 +29,13 @@ public class BusinessListener {
      */
     @ListenPoint(schema = "changgou_business", table = "tb_ad")
     public void adUpdate(CanalEntry.EntryType entryType, CanalEntry.RowData rowData) {
-        // log.info("广告表数据发生改变   改变之前的数据 ");
+        log.info("广告表数据发生改变   改变之前的数据 ");
         // 改变之前的数据
-        // rowData.getBeforeColumnsList().forEach(column -> log.info(column.getName() + " :: " + column.getValue()));
+        rowData.getBeforeColumnsList().forEach(column -> log.info(column.getName() + " :: " + column.getValue()));
 
-        // log.info("广告表数据发生改变   改变之后的数据 ");
+        log.info("广告表数据发生改变   改变之后的数据 ");
         // 改变之后的数据
-        // rowData.getAfterColumnsList().forEach(column -> log.info(column.getName() + " :: " + column.getValue()));
+        rowData.getAfterColumnsList().forEach(column -> log.info(column.getName() + " ::    " + column.getValue()));
         for (CanalEntry.Column column : rowData.getAfterColumnsList()) {
             // 只关注position列
             if ("position".equals(column.getName())) {
