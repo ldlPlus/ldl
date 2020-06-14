@@ -20,5 +20,6 @@ public class ParseJwtTest {
         Jwt decode = JwtHelper.decodeAndVerify(jwt, new RsaVerifier(publicKey));
         String claims = decode.getClaims();
         System.out.println("claims = " + claims);
+        // String s = "<span style='color: '";
     }
 }
