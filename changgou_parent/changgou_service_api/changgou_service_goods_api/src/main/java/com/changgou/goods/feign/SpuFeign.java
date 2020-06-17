@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient(name = "goods")
 @RequestMapping("/spu")
 public interface SpuFeign {
-    @GetMapping("/findSpuById/{id}")
+    @GetMapping({"/findSpuById/{id}"})
     Result<Spu> findSpuById(@PathVariable String id);
 }

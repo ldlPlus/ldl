@@ -3,10 +3,11 @@ package com.changgou.user.controller;
 import com.changgou.entity.PageResult;
 import com.changgou.entity.Result;
 import com.changgou.entity.StatusCode;
-import com.changgou.user.service.UserService;
 import com.changgou.user.pojo.User;
+import com.changgou.user.service.UserService;
 import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class UserController {
      * @return
      */
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('admin')")
     public Result findAll() {
         List<User> userList = userService.findAll();
         return new Result(true, StatusCode.OK, "查询成功", userList);

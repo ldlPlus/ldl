@@ -1,0 +1,26 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: pay
+  rabbitmq:
+    host: www.ldl.plus
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:6868/eureka
+  instance:
+    prefer-ip-address: true
+
+#微信支付信息配置
+weixin:
+  #应用ID
+  appid: wx8397f8696b538317
+  #商户ID
+  partner: 1473426802
+  #秘钥
+  partnerkey: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
+  #支付回调地址
+  notifyurl: http://www.itcast.cn
