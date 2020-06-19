@@ -7,6 +7,14 @@ spring:
     host: www.ldl.plus
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  kafka:
+    bootstrap-servers: 106.55.8.8
+    #=============== provider  =======================
+    producer:
+      retries: 0
+      # 每次批量发送消息的数量
+      batch-size: 16384
+      buffer-memory: 33554432
 eureka:
   client:
     service-url:
@@ -23,4 +31,15 @@ weixin:
   #秘钥
   partnerkey: T6m9iK73b0kn9g5v426MKfHQH7X8rKwb
   #支付回调地址
-  notifyurl: http://www.itcast.cn
+  notifyurl: http://www.ldl.plus/weixin/pay/notify/url
+
+
+#位置支付交换机和队列
+mq:
+  pay:
+    exchange:
+      order: exchange.order
+    queue:
+      order: queue.order
+    routing:
+      key: queue.order
